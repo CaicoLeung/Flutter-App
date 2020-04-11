@@ -40,6 +40,11 @@ flutter:
 
   assets:
     - assets/icon/home-sec.png
+    - assets/tabbar/faxian.png
+    - assets/tabbar/release.png
+    - assets/tabbar/wode.png
+    - assets/tabbar/wode-not.png
+    - assets/tabbar/faxian-select.png
 
   fonts:
     - family: Bebas
