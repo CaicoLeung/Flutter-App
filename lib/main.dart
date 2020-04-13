@@ -1,8 +1,8 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'text_widget_page.dart' show TextPage;
-import 'button_widget_page.dart' show ButtonPage;
+import 'text_widget_page.dart' show InfiniterGridView;
+import 'button_widget_page.dart' show ScrollControllerTestPage;
 import 'image_widget_page.dart' show ImagePage;
 import 'switch_checkbox_widget_page.dart' show SwitchCheckBoxPage;
 import 'textfield_widget_page.dart' show TextFieldPage;
@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         'home': (context) => MyHomePage(),
-        'text': (context) => TextPage(),
-        'button': (context) => ButtonPage(),
+        'text': (context) => InfiniterGridView(),
+        'button': (context) => ScrollControllerTestPage(),
         'image': (context) => ImagePage(),
         'switch': (context) => SwitchCheckBoxPage(),
         'textfield': (context) => TextFieldPage(),
