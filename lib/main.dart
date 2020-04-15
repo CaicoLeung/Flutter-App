@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'text_widget_page.dart' show InfiniterGridView;
 import 'button_widget_page.dart' show ScrollControllerTestPage;
 import 'image_widget_page.dart' show ImagePage;
-import 'switch_checkbox_widget_page.dart' show SwitchCheckBoxPage;
+import 'switch_checkbox_widget_page.dart' show InheritedWidgetTestRoute;
 import 'textfield_widget_page.dart' show TextFieldPage;
 import 'progress_widget_page.dart' show ProgressPage;
 import 'layout_widget/row.dart' show RowPage;
-import 'layout_widget/constrainedBox.dart' show ConstrainedPage;
+import 'layout_widget/ProviderRoute.dart' show Product, ShoppingList;
 
 void main() => runApp(MyApp());
 
@@ -27,11 +27,15 @@ class MyApp extends StatelessWidget {
         'text': (context) => InfiniterGridView(),
         'button': (context) => ScrollControllerTestPage(),
         'image': (context) => ImagePage(),
-        'switch': (context) => SwitchCheckBoxPage(),
+        'switch': (context) => InheritedWidgetTestRoute(),
         'textfield': (context) => TextFieldPage(),
         'progress': (context) => ProgressPage(),
         'layout': (context) => RowPage(),
-        'constrained': (context) => ConstrainedPage()
+        'constrained': (context) => ShoppingList(products: <Product>[
+          Product(name: '鸡蛋', price: 3.02),
+          Product(name: '面粉', price: 5.10),
+          Product(name: '朱古力片', price: 52.00)
+        ],)
       },
       home: MyHomePage(),
     );
