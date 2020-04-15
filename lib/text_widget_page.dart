@@ -7,7 +7,7 @@ class InfiniterGridView extends StatefulWidget {
 
 class _InfiniterGridViewState extends State<InfiniterGridView> {
   List<IconData> _icons = [];
-  static final bool showGrid = true;
+  bool showGrid = true;
 
   @override
   void initState() {
@@ -18,12 +18,12 @@ class _InfiniterGridViewState extends State<InfiniterGridView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('布局演示'),),
-      body: showGrid ? _buildGrid() : _buildList(),
-      floatingActionButton: IconButton(
-        icon: Icons,
-      ),
-    );
+        appBar: AppBar(
+          title: Text('布局演示'),
+        ),
+        body: showGrid ? _buildGrid() : _buildList(),
+        floatingActionButton:
+            RaisedButton.icon(onPressed: () => setState(() => showGrid = !showGrid), icon: Icon(Icons.cached), label: Text('Toggle')));
   }
 
   Widget _buildGrid() => GridView.extent(
