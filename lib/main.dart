@@ -9,6 +9,8 @@ import 'textfield_widget_page.dart' show TextFieldPage;
 import 'progress_widget_page.dart' show ProgressPage;
 import 'layout_widget/row.dart' show RowPage;
 import 'layout_widget/ProviderRoute.dart' show Product, ShoppingList;
+import 'card_route_page.dart' show CardRoutePage;
+import 'layout_widget/layout1_route_page.dart' show LayoutPageOne;
 
 void main() => runApp(MyApp());
 
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
           Product(name: '鸡蛋', price: 3.02),
           Product(name: '面粉', price: 5.10),
           Product(name: '朱古力片', price: 52.00)
-        ],)
+        ],),
+        'Card': (context) => CardRoutePage()
       },
       home: MyHomePage(),
     );
@@ -62,7 +65,22 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   TabController _tabController;
   List tabs = ['新闻', '历史', '图片'];
   int _selectedIndex = 0;
-  String words = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  List _menus = [
+    {
+      'name': 'Card',
+      'router': CardRoutePage()
+    },
+    {
+      'name': 'Layout1',
+      'router': LayoutPageOne()
+    },
+  ];
+  List<Widget> _buildMenus(BuildContext context) => _menus.map((menu) => RaisedButton(
+    child: Text(menu['name']),
+    onPressed: () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => menu['router']));
+    },
+  )).toList();
   static const loadingTag = "##loading##";
   var _words = <String>[loadingTag];
 
@@ -202,13 +220,13 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 ),
               ),
             ),
-            SingleChildScrollView(
-              padding: EdgeInsets.all(16.0),
-              child: Center(
-                child: Column(
-                  children: words.split('').map((f) => Text(f, style: TextStyle(height: 2),)).toList(),
-                ),
+            GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0
               ),
+              children: _buildMenus(context),
             ),
             Column(
               children: <Widget>[

@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
 import 'TestFlowDelegate.dart' show TestFlowDelegate;
 
+Widget _buildStack() => Stack(
+      alignment: Alignment.topCenter,
+      children: <Widget>[
+        CircleAvatar(
+          backgroundImage: NetworkImage('https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+          radius: 100,
+        ),
+        Positioned(
+          right: 30,
+          bottom: 30,
+          child: Text('Coco', style: TextStyle(color: Colors.white),),
+        )
+      ],
+    );
+
+List<Color> _colors = [ Colors.red, Colors.green, Colors.black54, Colors.blue, Colors.yellow, Colors.grey, Colors.purple ];
+
+List<Widget> _buildFlowList() => _colors.map((color) => Container(
+  width: 80.0,
+  height: 80.0,
+  color: color,
+),).toList();
+
+List<String> _nameList = ['CaicoLeung', 'LilyChan', 'MeJson', 'Mile'];
+
+List<Chip> _buildChipList() => _nameList.map((name) => Chip(
+  avatar: CircleAvatar(
+    backgroundColor: Colors.blue,
+    child: Text(name[0]),
+  ),
+  label: Text(name),
+),).toList();
+
 class RowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -62,67 +95,13 @@ class RowPage extends StatelessWidget {
             runSpacing: 4.0,
             alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.start,
-            children: <Widget>[
-              Chip(
-                avatar: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Text('CC'),
-                ),
-                label: Text('Caico'),
-              ),
-              Chip(
-                avatar: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Text('M'),
-                ),
-                label: Text('Mulligan'),
-              ),
-              Chip(
-                avatar: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Text('A'),
-                ),
-                label: Text('Caico'),
-              ),
-              Chip(
-                avatar: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Text('A'),
-                ),
-                label: Text('Caico'),
-              ),
-            ],
+            children: _buildChipList()
           ),
           Flow(
             delegate: TestFlowDelegate(margin: EdgeInsets.all(10.0)),
-            children: <Widget>[
-              Container(width: 80.0, height: 80.0, color: Colors.red,),
-              Container(width: 80.0, height: 80.0, color: Colors.green,),
-              Container(width: 80.0, height: 80.0, color: Colors.blue,),
-              Container(width: 80.0, height: 80.0, color: Colors.yellow,),
-              Container(width: 80.0, height: 80.0, color: Colors.brown,),
-              Container(width: 80.0, height: 80.0, color: Colors.purple,),
-            ],
+            children: _buildFlowList()
           ),
-          Container(
-            width: 100.0,
-            height: 100.0,
-            decoration: BoxDecoration(border: Border.all(color: Colors.green, width: 2.0, style: BorderStyle.solid)),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Positioned(
-                  top: 20.0,
-                  right: 20.0,
-                  width: 20.0,
-                  height: 20.0,
-                  child: Container(
-                    color: Colors.teal,
-                  ),
-                )
-              ],
-            ),
-          )
+          _buildStack()
         ],
       ),
     );
