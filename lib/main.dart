@@ -11,6 +11,9 @@ import 'layout_widget/row.dart' show RowPage;
 import 'layout_widget/ProviderRoute.dart' show Product, ShoppingList;
 import 'card_route_page.dart' show CardRoutePage;
 import 'layout_widget/layout1_route_page.dart' show LayoutPageOne;
+import 'widget_state_page.dart' show ParentWidget;
+import 'route_param_page.dart' show ExtractArgumentsScreen;
+import 'http_page.dart' show HttpPage;
 
 void main() => runApp(MyApp());
 
@@ -20,10 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '至尊宝物',
       initialRoute: 'home',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        primaryColor: Colors.white
-      ),
+      theme: ThemeData(primarySwatch: Colors.red, primaryColor: Colors.white),
       routes: {
         'home': (context) => MyHomePage(),
         'text': (context) => InfiniterGridView(),
@@ -33,12 +33,11 @@ class MyApp extends StatelessWidget {
         'textfield': (context) => TextFieldPage(),
         'progress': (context) => ProgressPage(),
         'layout': (context) => RowPage(),
-        'constrained': (context) => ShoppingList(products: <Product>[
-          Product(name: '鸡蛋', price: 3.02),
-          Product(name: '面粉', price: 5.10),
-          Product(name: '朱古力片', price: 52.00)
-        ],),
-        'Card': (context) => CardRoutePage()
+        'constrained': (context) => ShoppingList(
+              products: <Product>[Product(name: '鸡蛋', price: 3.02), Product(name: '面粉', price: 5.10), Product(name: '朱古力片', price: 52.00)],
+            ),
+        'Card': (context) => CardRoutePage(),
+        ExtractArgumentsScreen.routeName : (context) => ExtractArgumentsScreen()
       },
       home: MyHomePage(),
     );
@@ -60,34 +59,32 @@ Widget setTabbarItem(String path) {
   );
 }
 
-
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController _tabController;
   List tabs = ['新闻', '历史', '图片'];
   int _selectedIndex = 0;
   List _menus = [
-    {
-      'name': 'Card',
-      'router': CardRoutePage()
-    },
-    {
-      'name': 'Layout1',
-      'router': LayoutPageOne()
-    },
+    {'name': 'Card', 'router': CardRoutePage()},
+    {'name': 'Layout1', 'router': LayoutPageOne()},
+    {'name': 'WidgetState', 'router': ParentWidget()},
+    {'name': 'HttpPage', 'router': HttpPage()},
   ];
-  List<Widget> _buildMenus(BuildContext context) => _menus.map((menu) => RaisedButton(
-    child: Text(menu['name']),
-    onPressed: () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => menu['router']));
-    },
-  )).toList();
+  List<Widget> _buildMenus(BuildContext context) => _menus
+      .map((menu) => RaisedButton(
+            child: Text(menu['name']),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => menu['router']));
+            },
+          ))
+      .toList();
   static const loadingTag = "##loading##";
   var _words = <String>[loadingTag];
 
   void _retrieveData() {
     Future.delayed(Duration(seconds: 2)).then((e) {
       setState(() {
-        _words: _words.insertAll(_words.length - 1, generateWordPairs().take(20).map((f) => f.asPascalCase).toList());
+        _words:
+        _words.insertAll(_words.length - 1, generateWordPairs().take(20).map((f) => f.asPascalCase).toList());
       });
     });
   }
@@ -140,11 +137,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           bottom: TabBar(
             controller: _tabController,
             labelColor: Colors.black,
-            tabs: tabs
-                .map((e) => Tab(
-                      text: e,
-                    ))
-                .toList(),
+            tabs: tabs.map((e) => Tab(text: e,)).toList(),
           ),
           backgroundColor: Colors.white,
           textTheme: TextTheme(title: TextStyle(color: Color.fromRGBO(51, 51, 51, 1), fontSize: 20, fontWeight: FontWeight.w600)),
@@ -221,23 +214,26 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               ),
             ),
             GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0
-              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 0, crossAxisSpacing: 0),
               children: _buildMenus(context),
             ),
             Column(
               children: <Widget>[
-                ListTile(title: Text('今天要背的单词: ', style: TextStyle(decoration: TextDecoration.underline),),),
+                ListTile(
+                  title: Text(
+                    '今天要背的单词: ',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  ),
+                ),
                 Expanded(
                   child: ListView.separated(
                     itemCount: _words.length,
-                    separatorBuilder: (context, index) => Divider(height: 1.0,),
+                    separatorBuilder: (context, index) => Divider(
+                      height: 1.0,
+                    ),
                     itemBuilder: (context, index) {
-                      if(_words[index] == loadingTag) {
-                        if(_words.length < 50) {
+                      if (_words[index] == loadingTag) {
+                        if (_words.length < 50) {
                           _retrieveData();
                           return Container(
                             padding: EdgeInsets.all(16.0),
@@ -245,18 +241,25 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                             child: SizedBox(
                               width: 24.0,
                               height: 24.0,
-                              child: CircularProgressIndicator(strokeWidth: 2.0,),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.0,
+                              ),
                             ),
                           );
                         } else {
                           return Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.all(16.0),
-                            child: Text('没有更多了', style: TextStyle(color: Colors.grey),),
+                            child: Text(
+                              '没有更多了',
+                              style: TextStyle(color: Colors.grey),
+                            ),
                           );
                         }
                       }
-                      return ListTile(title: Text(_words[index]),);
+                      return ListTile(
+                        title: Text(_words[index]),
+                      );
                     },
                   ),
                 )
