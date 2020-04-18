@@ -15,6 +15,7 @@ import 'widget_state_page.dart' show ParentWidget;
 import 'route_param_page.dart' show ExtractArgumentsScreen;
 import 'http_page.dart' show HttpPage;
 import 'http_compute_page.dart' show HttpPhotosPage;
+import 'file_reader_page.dart' show FilePage, CounterStorage;
 
 void main() => runApp(MyApp());
 
@@ -70,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     {'name': 'WidgetState', 'router': ParentWidget()},
     {'name': 'HttpFetch', 'router': HttpPage()},
     {'name': 'HttpPhotos', 'router': HttpPhotosPage()},
+    {'name': 'FilePage', 'router': FilePage(storage: CounterStorage(),)},
   ];
   List<Widget> _buildMenus(BuildContext context) => _menus
       .map((menu) => RaisedButton(
