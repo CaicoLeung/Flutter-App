@@ -14,6 +14,7 @@ import 'layout_widget/layout1_route_page.dart' show LayoutPageOne;
 import 'widget_state_page.dart' show ParentWidget;
 import 'route_param_page.dart' show ExtractArgumentsScreen;
 import 'http_page.dart' show HttpPage;
+import 'http_compute_page.dart' show HttpPhotosPage;
 
 void main() => runApp(MyApp());
 
@@ -67,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     {'name': 'Card', 'router': CardRoutePage()},
     {'name': 'Layout1', 'router': LayoutPageOne()},
     {'name': 'WidgetState', 'router': ParentWidget()},
-    {'name': 'HttpPage', 'router': HttpPage()},
+    {'name': 'HttpFetch', 'router': HttpPage()},
+    {'name': 'HttpPhotos', 'router': HttpPhotosPage()},
   ];
   List<Widget> _buildMenus(BuildContext context) => _menus
       .map((menu) => RaisedButton(
