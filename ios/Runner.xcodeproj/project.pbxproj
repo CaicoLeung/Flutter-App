@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08D179C8244B52AA00A3C49D /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; };
+		08D179C9244B52AA00A3C49D /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08D1C792244AB14800E6233B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAE24D933B0793A337707871 /* Pods_Runner.framework */; };
 		08D1C793244AB14800E6233B /* Pods_Runner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAE24D933B0793A337707871 /* Pods_Runner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
@@ -27,6 +29,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				08D1C793244AB14800E6233B /* Pods_Runner.framework in Embed Frameworks */,
+				08D179C9244B52AA00A3C49D /* App.framework in Embed Frameworks */,
 				9705A1C71CF904A300538489 /* Flutter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -63,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08D1C792244AB14800E6233B /* Pods_Runner.framework in Frameworks */,
+				08D179C8244B52AA00A3C49D /* App.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

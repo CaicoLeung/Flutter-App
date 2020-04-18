@@ -43,5 +43,11 @@ void main() {
       }
       return null;
     });
+    const MethodChannel('plugins.flutter.io/shared_preferences').setMockMethodCallHandler((MethodCall methodCall) async {
+      if(methodCall.method == 'getAll') {
+        return <String, dynamic>{}; // set initial values here if desired
+      }
+      return null;
+    });
   });
 }

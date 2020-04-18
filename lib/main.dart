@@ -17,6 +17,8 @@ import 'http_page.dart' show HttpPage;
 import 'http_compute_page.dart' show HttpPhotosPage;
 import 'file_reader_page.dart' show FilePage, CounterStorage;
 import 'lottile-animation.dart' show LottiePage;
+import 'shared_ preferences_page.dart' show SharedPreferencesPage;
+import 'video_page.dart' show VideoPlayerScreen;
 
 void main() => runApp(MyApp());
 
@@ -74,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     {'name': 'HttpPhotos', 'router': HttpPhotosPage()},
     {'name': 'FilePage', 'router': FilePage(storage: CounterStorage(),)},
     {'name': 'LottiePage', 'router': LottiePage()},
+    {'name': 'SharedPreferences', 'router': SharedPreferencesPage(title: 'SharedPreferences',)},
+    {'name': 'VideoPlayerScreen', 'router': VideoPlayerScreen()},
   ];
   List<Widget> _buildMenus(BuildContext context) => _menus
       .map((menu) => RaisedButton(
