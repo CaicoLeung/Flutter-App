@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:camera/camera.dart';
 import 'text_widget_page.dart' show InfiniterGridView;
 import 'button_widget_page.dart' show ScrollControllerTestPage;
 import 'image_widget_page.dart' show ImagePage;
@@ -19,8 +20,16 @@ import 'file_reader_page.dart' show FilePage, CounterStorage;
 import 'lottile-animation.dart' show LottiePage;
 import 'shared_ preferences_page.dart' show SharedPreferencesPage;
 import 'video_page.dart' show VideoPlayerScreen;
+import 'camera_page.dart' show CameraPage;
 
-void main() => runApp(MyApp());
+List<CameraDescription> cameras;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  print("[相机列表]: $cameras");
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -78,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     {'name': 'LottiePage', 'router': LottiePage()},
     {'name': 'SharedPreferences', 'router': SharedPreferencesPage(title: 'SharedPreferences',)},
     {'name': 'VideoPlayerScreen', 'router': VideoPlayerScreen()},
+    {'name': 'CameraPage', 'router': CameraPage(camera: cameras[0],)},
   ];
   List<Widget> _buildMenus(BuildContext context) => _menus
       .map((menu) => RaisedButton(

@@ -32,6 +32,7 @@ dependencies:
   lottie: ^0.3.3
   shared_preferences: ^0.5.6+3
   video_player: ^0.10.8+1
+  camera: ^0.5.7+4
 
 dev_dependencies:
   flutter_test:
