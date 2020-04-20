@@ -13,11 +13,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void initState() {
-    _videoPlayerController = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
-    _initializeVideoPlayerFuture = _videoPlayerController.initialize();
-    _videoPlayerController.setLooping(true);
     super.initState();
+    _videoPlayerController = VideoPlayerController.network(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4')..initialize().then((_) {
+          setState(() {});
+    });
+//    _initializeVideoPlayerFuture = _videoPlayerController.initialize();
+    _videoPlayerController.setLooping(true);
   }
 
   @override
@@ -32,18 +34,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         appBar: AppBar(
           title: Text('Video'),
         ),
-        body: FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if(snapshot.connectionState == ConnectionState.done) {
-              return AspectRatio(
+        body: Center(
+          child: _videoPlayerController.value.initialized ?
+              AspectRatio(
                 aspectRatio: _videoPlayerController.value.aspectRatio,
                 child: VideoPlayer(_videoPlayerController),
-              );
-            } else {
-              return Center(child: CircularProgressIndicator(),);
-            }
-          },
+              ) : CircularProgressIndicator()
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(_videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow),

@@ -8,6 +8,8 @@
 	<string>需要您授权系统相机权限</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSAppTransportSecurity</key>
 		<true/>
 	</dict>

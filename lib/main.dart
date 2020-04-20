@@ -21,6 +21,7 @@ import 'lottile-animation.dart' show LottiePage;
 import 'shared_ preferences_page.dart' show SharedPreferencesPage;
 import 'video_page.dart' show VideoPlayerScreen;
 import 'camera_page.dart' show CameraPage;
+import 'scroll_page.dart' show ScrollPage;
 
 List<CameraDescription> cameras;
 
@@ -77,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   TabController _tabController;
   List tabs = ['新闻', '历史', '图片'];
   int _selectedIndex = 0;
+  int _counter = 0;
   List _menus = [
     {'name': 'Card', 'router': CardRoutePage()},
     {'name': 'Layout1', 'router': LayoutPageOne()},
@@ -87,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     {'name': 'LottiePage', 'router': LottiePage()},
     {'name': 'SharedPreferences', 'router': SharedPreferencesPage(title: 'SharedPreferences',)},
     {'name': 'VideoPlayerScreen', 'router': VideoPlayerScreen()},
-    {'name': 'CameraPage', 'router': CameraPage(camera: cameras[0],)},
+    {'name': 'ScrollPage', 'router': ScrollPage(items: List<String>.generate(1000, (i) => 'Item $i'))},
   ];
   List<Widget> _buildMenus(BuildContext context) => _menus
       .map((menu) => RaisedButton(
@@ -99,6 +101,12 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       .toList();
   static const loadingTag = "##loading##";
   var _words = <String>[loadingTag];
+
+  void _incrementCounter() {
+    setState(() {
+      _counter ++;
+    });
+  }
 
   void _retrieveData() {
     Future.delayed(Duration(seconds: 2)).then((e) {
@@ -113,6 +121,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   void initState() {
     print('initState');
     super.initState();
+    if (cameras.length > 0) {
+      _menus.add({'name': 'CameraPage', 'router': CameraPage(camera: cameras[0],)},);
+    }
     _tabController = TabController(initialIndex: 0, length: tabs.length, vsync: this);
     _tabController.addListener(() {
       print('当前Tabs index: ${_tabController.index}');
@@ -187,6 +198,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Text(
+                      'You have pushed the button this many times:',
+                    ),
+                    Text('$_counter', key: Key('counter'), style: Theme.of(context).textTheme.display1,),
                     FlatButton.icon(
                       color: Colors.yellow,
                       icon: Icon(Icons.short_text),
@@ -286,7 +301,14 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               ],
             )
           ],
-        ));
+        ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        key: Key('counter'),
+        tooltip: 'Increment',
+        onPressed: _incrementCounter,
+      ),
+    );
   }
 
   void _onItemTapped(int index) {
